@@ -1,0 +1,115 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html{
+    -webkit-text-size-adjust: 100%;
+}
+
+.add-food-container{
+    min-height:100vh;
+    min-height: 100dvh;
+    background:#f4f4f4;
+    padding-bottom:30px;
+    position:relative;
+}
+
+.add-food-header{
+    height:80px;
+    background:#2c9635;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:0 25px;
+    color:white;
+    position:relative;
+}
+
+.add-food-header h2{
+    font-size:28px;
+    font-weight:600;
+}
+
+.add-food-back-icon{
+    position:absolute;
+    left:20px;
+    top:50%;
+    transform:translateY(-50%);
+    font-size:28px;
+    color:white;
+    cursor:pointer;
+}
+
+.food-form{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+    width:100%;
+    max-width:650px;
+    margin:30px auto 0;
+    padding:0 20px;
+}
+
+.food-form input,
+.food-form select,
+.food-form textarea{
+    width:100%;
+    padding:20px;
+    border:2px solid #d9eeda;
+    border-radius:16px;
+    background:white;
+    font-size:17px;
+    outline:none;
+}
+
+.food-form textarea{
+    resize:none;
+    height:120px;
+}
+
+.food-form input:focus,
+.food-form select:focus,
+.food-form textarea:focus{
+    border-color:#2c9635;
+}
+
+.food-form label{
+    font-size:20px;
+    font-weight:650;
+    color:#333;
+    margin-bottom:-10px;
+}
+
+.row{
+    display:flex;
+    gap:12px;
+}
+
+.row input,
+.row select{
+    height:55px;
+    padding:0 15px;
+    border:2px solid #d9eeda;
+    border-radius:12px;
+    font-size:16px;
+    outline:none;
+    flex:1;
+}
+
+.save-btn{
+    height:60px;
+    border:none;
+    border-radius:16px;
+    background:#2c9635;
+    color:white;
+    font-size:20px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.save-btn:hover{
+    opacity:.9;
+}
