@@ -20,7 +20,7 @@ function ForgotPassword() {
         try {
 
             const response = await fetch(
-                "http://192.168.1.69:8000/api/forgot-password/",
+                "https://smart-food-dyp3.onrender.com/api/forgot-password/",
                 {
                     method: "POST",
                     headers: {

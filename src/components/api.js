@@ -20,7 +20,7 @@ export const refreshToken = async () => {
     }
 
     const response = await fetch(
-        "http://192.168.1.69:8000/api/token/refresh/",
+        "https://smart-food-dyp3.onrender.com/api/token/refresh/",
         {
             method: "POST",
             headers: {

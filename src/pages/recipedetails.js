@@ -21,12 +21,12 @@ function RecipeDetails() {
 
         try {
             const recipeResponse = await fetchWithAuth(
-                `http://192.168.1.69:8000/api/recipes/${id}/`
+                `https://smart-food-dyp3.onrender.com/api/recipes/${id}/`
             );
             const recipeData = await recipeResponse.json();
             setRecipe(recipeData);
             const foodResponse = await fetchWithAuth(
-                "http://192.168.1.69:8000/api/fooditems/"
+                "https://smart-food-dyp3.onrender.com/api/fooditems/"
             );
             const foodData = await foodResponse.json();
             setFoods(Array.isArray(foodData)

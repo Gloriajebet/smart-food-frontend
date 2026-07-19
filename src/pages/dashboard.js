@@ -44,7 +44,7 @@ useEffect(() => {
     const fetchDashboard = async () => {
         try {
             const dashboardResponse = await fetchWithAuth(
-                "http://192.168.1.69:8000/api/dashboard/",
+                "https://smart-food-dyp3.onrender.com/api/dashboard/",
                 {
                     headers: authHeaders(),
                 }
@@ -55,7 +55,7 @@ useEffect(() => {
             setSummary(dashboardData);
 
             const foodResponse = await fetchWithAuth(
-                "http://192.168.1.69:8000/api/fooditems/"
+                "https://smart-food-dyp3.onrender.com/api/fooditems/"
             );
 
             const foodData = await foodResponse.json();
@@ -67,7 +67,7 @@ useEffect(() => {
             );
 
             const recipeResponse = await fetchWithAuth(
-                "http://192.168.1.69/api/recipes/"
+                "https://smart-food-dyp3.onrender.com/api/recipes/"
             );
 
             const recipeData = await recipeResponse.json();

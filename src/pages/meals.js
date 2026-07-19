@@ -35,7 +35,7 @@ function MealSuggestion() {
     const loadFoods = async () => {
         try {
             const response = await fetchWithAuth(
-                "http://192.168.1.69:8000/api/fooditems/"
+                "https://smart-food-dyp3.onrender.com/api/fooditems/"
             );
             const data = await response.json();
             setFoods(Array.isArray(data) ? data : data.results);
@@ -48,7 +48,7 @@ function MealSuggestion() {
     const loadRecipes = async () => {
       try {
             const response = await fetchWithAuth(
-                "http://192.168.1.69:8000/api/recipes/"
+                "https://smart-food-dyp3.onrender.com/api/recipes/"
             );
             const data = await response.json();
             console.log(data.results[0]);

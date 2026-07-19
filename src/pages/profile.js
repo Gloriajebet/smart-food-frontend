@@ -36,7 +36,7 @@ function Profile() {
         try {
 
             const response = await fetchWithAuth(
-                "http://192.168.1.69:8000/api/profile/"
+                "https://smart-food-dyp3.onrender.com/api/profile/"
             );
 
             const data = await response.json();
@@ -64,7 +64,7 @@ const saveProfile = async () => {
 
         const response = await fetchWithAuth(
 
-            "http://192.168.1.69:8000/api/profile/",
+            "https://smart-food-dyp3.onrender.com/api/profile/",
 
             {
 

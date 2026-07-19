@@ -45,7 +45,7 @@ function AddRecipe() {
             formData.append("image", recipe.image);
         }
         const response = await fetchWithAuth(
-            "http://192.168.1.69:8000/api/recipes/",
+            "https://smart-food-dyp3.onrender.com/api/recipes/",
             {
                 method: "POST",
                 body: formData

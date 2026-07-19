@@ -62,7 +62,7 @@ function Reports() {
   const loadReports = async () => {
     try {
       const response = await fetchWithAuth(
-        `http://192.168.1.69:8000/api/reports/?period=${period}`
+        `https://smart-food-dyp3.onrender.com/api/reports/?period=${period}`
       );
 
       const data = await response.json();

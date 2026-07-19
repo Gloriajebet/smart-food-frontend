@@ -34,7 +34,7 @@ function EditFood() {
         const loadFood = async () => {
             try {
                 const response = await fetchWithAuth(
-                    `http://192.168.1.69:8000/api/fooditems/${id}/`,
+                    `https://smart-food-dyp3.onrender.com/api/fooditems/${id}/`,
                     {
                         headers: authHeaders()
                     }
@@ -75,7 +75,7 @@ function EditFood() {
         setSaving(true);
         try {
             const response = await fetchWithAuth(
-                `http://192.168.1.69:8000/api/fooditems/${id}/`,
+                `https://smart-food-dyp3.onrender.com/api/fooditems/${id}/`,
                 {
                     method: "PUT",
                     headers: authHeaders(),

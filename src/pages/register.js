@@ -28,7 +28,7 @@ function Register() {
     setLoading(true);
     try {
         const response = await fetch(
-            "http://192.168.1.69:8000/api/register/",
+            "https://smart-food-dyp3.onrender.com/api/register/",
             {
                 method: "POST",
                 headers: {
@@ -150,7 +150,6 @@ function Register() {
         </button>
       </form>
 
-      {/* Login link */}
       <div className="login-link">
         Already have an account?
         <Link to="/">

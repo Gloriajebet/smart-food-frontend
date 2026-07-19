@@ -25,7 +25,7 @@ function AddFood() {
     setLoading(true);
     try {
         const response = await fetchWithAuth(
-    "http://192.168.1.69:8000/api/fooditems/",
+    "https://smart-food-dyp3.onrender.com/api/fooditems/",
     {
         method: "POST",
         headers: authHeaders(),

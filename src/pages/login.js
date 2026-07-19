@@ -20,7 +20,7 @@ function Login() {
     setLoading(true);
     try {
         const response = await fetch(
-            "http://192.168.1.69:8000/api/login/",
+            "https://smart-food-dyp3.onrender.com/api/login/",
             {
                 method: "POST",
                 headers: {

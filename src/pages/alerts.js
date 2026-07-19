@@ -25,7 +25,7 @@ function Alerts() {
   const fetchAlerts = async () => {
     try {
       const response = await fetchWithAuth(
-        `http://192.168.1.69:8000/api/alerts/`,
+        `https://smart-food-dyp3.onrender.com/api/alerts/`,
         {
           headers: authHeaders(),
         }
