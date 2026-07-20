@@ -14,6 +14,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -36,9 +37,9 @@ function Login() {
         console.log(data);
         
         if (!response.ok) {
-            alert(data.error || "Invalid username or password");
-            return;
-        }
+    setError(data.error || "Invalid username or password");
+    return;
+}
         localStorage.setItem(
           "access",
           data.access
@@ -56,7 +57,6 @@ function Login() {
               }
             )
         );
-        alert("Login successful!");
         navigate("/dashboard");
     } catch (error) {
         console.error(error);
@@ -143,6 +143,10 @@ function Login() {
            </Link>
 
           </div>
+
+          {error && (
+  <p className="login-error">{error}</p>
+)}
 
           <button
     type="submit"

@@ -92,7 +92,6 @@ const saveProfile = async () => {
 
         );
 
-        alert("Profile updated successfully!");
 
     }
 

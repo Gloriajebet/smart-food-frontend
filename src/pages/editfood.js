@@ -85,7 +85,6 @@ function EditFood() {
             if (!response.ok) {
                 throw new Error("Update failed");
             }
-            alert("Food updated successfully!");
             navigate("/inventory");
         }
         catch (error) {

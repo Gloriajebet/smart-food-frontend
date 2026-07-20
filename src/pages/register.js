@@ -46,7 +46,6 @@ function Register() {
             alert(data.error || "Registration failed.");
             return;
         }
-        alert("Registration successful!");
         navigate("/");
     } catch (error) {
         console.error(error);

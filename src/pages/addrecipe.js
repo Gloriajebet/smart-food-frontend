@@ -54,7 +54,6 @@ function AddRecipe() {
         if (!response.ok) {
             throw new Error("Failed to save recipe");
         }
-        alert("Recipe added successfully!");
         navigate("/meals");
     }
     catch (error) {

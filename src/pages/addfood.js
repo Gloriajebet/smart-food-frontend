@@ -49,7 +49,6 @@ function AddFood() {
             alert("Failed to save item");
             return;
         }
-        alert("Food item saved successfully!");
         navigate("/inventory");
     } catch (error) {
         console.error(error);
