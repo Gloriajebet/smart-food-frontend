@@ -240,7 +240,7 @@ const suggestions = recipes
 
 })
 
-.filter(recipe => recipe.percentage >= 10)
+.filter(recipe => recipe.percentage >= 0)
 
 .sort((a, b) =>
 
