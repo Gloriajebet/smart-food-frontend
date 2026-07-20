@@ -19,9 +19,46 @@ function AddFood() {
  const [additionalNotes, setAdditionalNotes] = useState("");
  const [price,setPrice]=useState("");
  const [loading, setLoading] = useState(false);
+ const [error, setError] = useState({});
+
+ const validateForm = () => {
+    const newErrors = {};
+
+    if (!foodName.trim()) {
+        newErrors.name = "Food name is required";
+    }
+
+    if (!category) {
+        newErrors.category = "Category is required";
+    }
+
+    if (!quantity) {
+        newErrors.quantity = "Quantity is required";
+    }
+
+    if (!unit) {
+        newErrors.unit = "Unit is required";
+    }
+
+    if (!purchaseDate) {
+        newErrors.purchaseDate = "Purchase date is required";
+    }
+
+    if (!expiryDate) {
+        newErrors.expiryDate = "Expiry date is required";
+    }
+
+    setError(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+};
 
  const handleSubmit = async (e) => {
     e.preventDefault();
+   if (!validateForm()) {
+    alert("Please fill in all required fields.");
+    return;
+}
     setLoading(true);
     try {
         const response = await fetchWithAuth(
@@ -78,28 +115,67 @@ function AddFood() {
         <label>Food Name</label>
 
         <input
-          type="text"
-          placeholder="Enter food name"
-          value={foodName}
-          onChange={(e) => setFoodName(e.target.value)}
-        />
+    type="text"
+    value={foodName}
+    onChange={(e) => {
+        setFoodName(e.target.value);
 
+        setError({
+            ...error,
+            name: ""
+        });
+    }}
+    className={error.name ? "input-error" : ""}
+/>
+
+{error.name && (
+    <p className="error-text">
+        {error.name}
+    </p>
+)}
         <label>Quantity</label>
 
         <div className="row">
-          <input
-            type="number"
-            placeholder="Enter quantity"
-            value={quantity}
-            onChange={(e) => setQuantity(e.target.value)}
-          />
+         <input
+    type="number"
+    placeholder="Enter quantity"
+    value={quantity}
+    onChange={(e) => {
+        setQuantity(e.target.value);
 
+        setError({
+            ...error,
+            quantity: ""
+        });
+    }}
+    className={error.quantity ? "input-error" : ""}
+/>
+
+{error.quantity && (
+    <p className="error-text">
+        {error.quantity}
+    </p>
+)}
         <select
-          value={unit}
-          onChange={(e) => setUnit(e.target.value)}
-        >
+    value={unit}
+    onChange={(e) => {
+        setUnit(e.target.value);
 
-          <option>Select Unit</option>
+        setError({
+            ...error,
+            unit: ""
+        });
+    }}
+    className={error.unit ? "input-error" : ""}
+>
+
+  {error.unit && (
+    <p className="error-text">
+        {error.unit}
+    </p>
+)}
+
+          <option value="">Select Unit</option>
           <option>Bags.</option>
           <option>Bottles.</option>
           <option>Boxes.</option>
@@ -140,11 +216,25 @@ function AddFood() {
         <label>Category</label>
 
          <select
-         value={category}
-         onChange={(e) => setCategory(e.target.value)}
-         >
+    value={category}
+    onChange={(e) => {
+        setCategory(e.target.value);
 
-          <option>Select Category</option>
+        setError({
+            ...error,
+            category: ""
+        });
+    }}
+    className={error.category ? "input-error" : ""}
+>
+
+  {error.category && (
+    <p className="error-text">
+        {error.category}
+    </p>
+)}
+
+         <option value="">Select Category</option>
           <option>Bakery (Breads&Buns, Pastries&Sweet Goods, Cakes&Muffins, Biscuits&Cookies, etc).</option>
           <option>Beverages (Carbonated Drinks, Juices, Energy&Sports Drinks, etc).</option>
           <option>Cereals (Rice, Wheat, Maize, Oats, Barley, etc).</option>
@@ -171,12 +261,25 @@ function AddFood() {
 
         <label>Purchase Date</label>
         <div className="row">
-        <input
-          type="date"
-          value={purchaseDate}
-          onChange={(e) => setPurchaseDate(e.target.value)}
-          placeholder="Purchase Date"
-        />
+       <input
+    type="date"
+    value={purchaseDate}
+    onChange={(e) => {
+        setPurchaseDate(e.target.value);
+
+        setError({
+            ...error,
+            purchaseDate: ""
+        });
+    }}
+    className={error.purchaseDate ? "input-error" : ""}
+/>
+
+{error.purchaseDate && (
+    <p className="error-text">
+        {error.purchaseDate}
+    </p>
+)}
         </div>
 
 
@@ -184,11 +287,24 @@ function AddFood() {
         <div className="row">
 
         <input
-          type="date"
-          value={expiryDate}
-          onChange={(e) => setExpiryDate(e.target.value)}
-          placeholder="Expiry Date"
-        />
+    type="date"
+    value={expiryDate}
+    onChange={(e) => {
+        setExpiryDate(e.target.value);
+
+        setError({
+            ...error,
+            expiryDate: ""
+        });
+    }}
+    className={error.expiryDate ? "input-error" : ""}
+/>
+
+{error.expiryDate && (
+    <p className="error-text">
+        {error.expiryDate}
+    </p>
+)}
         </div>
 
         <label>Price (KSh)</label>

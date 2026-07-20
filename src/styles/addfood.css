@@ -76,6 +76,19 @@ html{
     border-color:#2c9635;
 }
 
+.input-error {
+    border: 2px solid #e53935 !important;
+    background: #fff5f5;
+}
+
+.error-text {
+    color: #e53935;
+    font-size: 13px;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
 .food-form label{
     font-size:20px;
     font-weight:650;
