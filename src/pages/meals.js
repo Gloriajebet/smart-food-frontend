@@ -39,6 +39,7 @@ function MealSuggestion() {
             );
             const data = await response.json();
             setFoods(Array.isArray(data) ? data : data.results);
+            console.log("Foods from API:", data);
         }
         catch (error) {
             console.error(error);
@@ -239,7 +240,7 @@ const suggestions = recipes
 
 })
 
-.filter(recipe => recipe.percentage > 20)
+.filter(recipe => recipe.percentage >= 10)
 
 .sort((a, b) =>
 
