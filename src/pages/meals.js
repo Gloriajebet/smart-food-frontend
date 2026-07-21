@@ -362,23 +362,23 @@ const suggestions = recipes
                         </strong>
                        <p className="waste-score">
 
-{recipe.priorityScore >= 120 && "🔥 Highest Waste Reduction Priority"}
+{recipe.priorityScore >= 120 && "Highest Waste Reduction Priority"}
 
 {recipe.priorityScore >= 90 &&
  recipe.priorityScore < 120 &&
- "🟠 High Waste Reduction Priority"}
+ "High Waste Reduction Priority"}
 
 {recipe.priorityScore >= 60 &&
  recipe.priorityScore < 90 &&
- "🟡 Moderate Waste Reduction Priority"}
+ "Moderate Waste Reduction Priority"}
 
 {recipe.priorityScore < 60 &&
- "🟢 Low Waste Reduction Priority"}
+ "Low Waste Reduction Priority"}
 
 </p>
 
 <p className="view-recipe">
-    👆 Tap to view full recipe
+    Tap to view full recipe
 </p>
 
                     </div>
