@@ -240,7 +240,7 @@ function Reports() {
 
           <div>
             <h2>
-              KSh {""}
+              KSh {report.money_saved}
               <CountUp
               start={0}
               end={report.money_saved}
