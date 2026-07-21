@@ -20,6 +20,7 @@ function AddFood() {
  const [price,setPrice]=useState("");
  const [loading, setLoading] = useState(false);
  const [error, setError] = useState({});
+ const [showSaveConfirm, setShowSaveConfirm] = useState(false);
 
  const validateForm = () => {
     const newErrors = {};
@@ -56,44 +57,66 @@ function AddFood() {
  const handleSubmit = async (e) => {
     e.preventDefault();
    if (!validateForm()) {
-    alert("Please fill in all required fields.");
     return;
 }
+    setShowSaveConfirm(true);
+ };
+   
+  const confirmSaveFood = async () => {
+
     setLoading(true);
+
     try {
+
         const response = await fetchWithAuth(
-    "https://smart-food-dyp3.onrender.com/api/fooditems/",
-    {
-        method: "POST",
-        headers: authHeaders(),
-        body: JSON.stringify({
-            name: foodName,
-            quantity: quantity,
-            unit: unit,
-            category: category,
-            purchase_date: purchaseDate,
-            expiry_date: expiryDate,
-            price: price,
-            storage_location: storageLocation,
-            notes: additionalNotes
-        })
-    }
-);
-            
+            "https://smart-food-dyp3.onrender.com/api/fooditems/",
+            {
+                method: "POST",
+                headers: authHeaders(),
+                body: JSON.stringify({
+                    name: foodName,
+                    quantity: quantity,
+                    unit: unit,
+                    category: category,
+                    purchase_date: purchaseDate,
+                    expiry_date: expiryDate,
+                    price: price,
+                    storage_location: storageLocation,
+                    notes: additionalNotes
+                })
+            }
+        );
+
         if (!response.ok) {
+
             const errorData = await response.json();
+
             console.log(errorData);
+
             alert("Failed to save item");
+
             return;
+
         }
+
+        setShowSaveConfirm(false);
+
         navigate("/inventory");
+
     } catch (error) {
+
         console.error(error);
+
         alert("Something went wrong.");
+
     } finally {
+
         setLoading(false);
+
     }
+
 };
+            
   return (
     <div className="add-food-container">
 
@@ -344,6 +367,42 @@ function AddFood() {
         </button>
 
       </form>
+
+      {showSaveConfirm && (
+
+<div className="confirm-overlay">
+
+    <div className="confirm-box">
+
+        <h3>Save Food Item</h3>
+
+        <p>
+            Are you sure you want to save this food item?
+        </p>
+
+        <div className="confirm-buttons">
+
+            <button
+                className="cancel-btn"
+                onClick={() => setShowSaveConfirm(false)}
+            >
+                Cancel
+            </button>
+
+            <button
+                className="confirm-btn"
+                onClick={confirmSaveFood}
+            >
+                Save
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+)}
 
     </div>
   );
