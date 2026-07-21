@@ -358,7 +358,7 @@ const filteredFoods = foods.filter(food => {
                 className="confirm-btn"
                 onClick={confirmMarkAsUsed}
             >
-                Yes, Mark Used
+                Yes
             </button>
 
         </div>
