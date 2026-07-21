@@ -377,8 +377,8 @@ const suggestions = recipes
 
 </p>
 
-<p className="view-recipe">
-    Tap to view full recipe
+<p className="meal-view-recipe">
+    Tap to view full recipe.
 </p>
 
                     </div>

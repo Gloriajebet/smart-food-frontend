@@ -75,7 +75,7 @@ html{
     transition: width 0.3s ease-in-out;
 }
 
-.view-recipe {
+.meal-view-recipe {
     margin-top: 10px;
     text-align: center;
     color: #4CAF50;
