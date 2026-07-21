@@ -94,7 +94,6 @@ function Reports() {
 
     const doc = new jsPDF();
 
-    // Title
     doc.setFontSize(22);
     doc.setTextColor(44,150,53);
     doc.text("Smart Food System", 20,20);
