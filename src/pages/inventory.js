@@ -34,6 +34,8 @@ function Inventory() {
   const [deletingId, setDeletingId] = useState(null);
   const [showConfirm, setShowConfirm] = useState(false);
   const [selectedFoodId, setSelectedFoodId] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [selectedDeleteId, setSelectedDeleteId] = useState(null);
 
    const fetchFoods = useCallback(async () => {
     try {
@@ -71,19 +73,20 @@ useEffect(() => {
 
   const deleteFood = async (id) => {
 
-    const confirmDelete = window.confirm(
-        "Delete this food item?"
-    );
+    setSelectedDeleteId(id);
 
-    if (!confirmDelete) return;
+    setShowDeleteConfirm(true);
+
+};
+
+const confirmDeleteFood = async () => {
 
     try {
 
-        // Start animation
-        setDeletingId(id);
+        setDeletingId(selectedDeleteId);
 
         const response = await fetchWithAuth(
-            `https://smart-food-dyp3.onrender.com/api/fooditems/${id}/`,
+            `https://smart-food-dyp3.onrender.com/api/fooditems/${selectedDeleteId}/`,
             {
                 method: "DELETE",
                 headers: authHeaders(),
@@ -94,14 +97,17 @@ useEffect(() => {
             throw new Error("Delete failed");
         }
 
-        // Wait for animation
         setTimeout(() => {
 
             setFoods(prevFoods =>
-                prevFoods.filter(food => food.id !== id)
+                prevFoods.filter(food => food.id !== selectedDeleteId)
             );
 
             setDeletingId(null);
+
+            setShowDeleteConfirm(false);
+
+            setSelectedDeleteId(null);
 
         }, 300);
 
@@ -109,9 +115,7 @@ useEffect(() => {
 
         console.error(error);
 
-        setDeletingId(null);
-
-        alert("Unable to delete food. Please try again.");
+        alert("Unable to delete food.");
 
     }
 
@@ -359,6 +363,48 @@ const filteredFoods = foods.filter(food => {
                 onClick={confirmMarkAsUsed}
             >
                 Yes.
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+)}
+
+{showDeleteConfirm && (
+
+<div className="confirm-overlay">
+
+    <div className="confirm-box">
+
+        <h3>Delete Food Item</h3>
+
+        <p>
+            Are you sure you want to delete this food item?
+        </p>
+
+        <div className="confirm-buttons">
+
+            <button
+                className="cancel-btn"
+                onClick={() => {
+
+                    setShowDeleteConfirm(false);
+
+                    setSelectedDeleteId(null);
+
+                }}
+            >
+                Cancel
+            </button>
+
+            <button
+                className="confirm-btn"
+                onClick={confirmDeleteFood}
+            >
+                Delete
             </button>
 
         </div>
