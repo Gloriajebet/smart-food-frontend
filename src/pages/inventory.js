@@ -121,7 +121,7 @@ const markAsUsed = async (id) => {
 
    setSelectedFoodId(id);
    setShowConfirm(true);
-}
+};
 
     const confirmMarkAsUsed = async () => {
 
