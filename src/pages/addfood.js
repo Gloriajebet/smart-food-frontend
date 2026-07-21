@@ -426,27 +426,6 @@ function AddFood() {
   </div>
 )}
 
-{showErrorPopup && (
-  <div className="confirm-overlay">
-    <div className="confirm-box">
-
-      <h3>Unable to Save</h3>
-
-      <p>{errorMessage}</p>
-
-      <div className="confirm-buttons">
-        <button
-          className="confirm-btn"
-          onClick={() => setShowErrorPopup(false)}
-        >
-          OK
-        </button>
-      </div>
-
-    </div>
-  </div>
-)}
-
     </div>
   );
 }
