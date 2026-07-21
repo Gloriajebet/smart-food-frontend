@@ -114,6 +114,42 @@ useEffect(() => {
 
 };
 
+const markAsUsed = async (id) => {
+
+    const confirmUse = window.confirm(
+        "Are you sure you have used this food item?"
+    );
+
+    if (!confirmUse) {
+        return;
+    }
+
+    try {
+
+        const response = await fetchWithAuth(
+            `https://smart-food-dyp3.onrender.com/api/fooditems/${id}/mark-used/`,
+            {
+                method: "PATCH"
+            }
+        );
+
+        if (!response.ok) {
+            alert("Failed to mark item as used.");
+            return;
+        }
+
+        alert("✅ Food item marked as used successfully!");
+
+    } catch (error) {
+
+        console.error(error);
+
+        alert("Something went wrong.");
+
+    }
+
+};
+
   const today = new Date();
 
 const filteredFoods = foods.filter(food => {
@@ -262,6 +298,23 @@ const filteredFoods = foods.filter(food => {
                 className="action-icon delete"
                 onClick={() => deletingId === null && deleteFood(food.id)}
               />
+
+             {!food.is_used ? (
+
+<button
+    className="used-btn"
+    onClick={() => markAsUsed(food.id)}
+>
+    Mark as Used
+</button>
+
+) : (
+
+<p className="used-label">
+    Used
+</p>
+
+)}
             </div>
           ))
         )}
