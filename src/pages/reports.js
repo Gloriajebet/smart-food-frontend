@@ -305,7 +305,7 @@ function Reports() {
 
             <XAxis dataKey="week"/>
 
-            <YAxis domain={[0, 20]}/>
+            <YAxis/>
 
             <Tooltip/>
 
