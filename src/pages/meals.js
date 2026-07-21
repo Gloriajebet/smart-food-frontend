@@ -437,11 +437,6 @@ const suggestions = recipes
                                     </li>
                                 ))}
                             </ul>
-                            <h3>Instructions</h3>
-
-<p className="recipe-instructions">
-    {recipe.instructions}
-</p>
 
                         </>
                     )}
