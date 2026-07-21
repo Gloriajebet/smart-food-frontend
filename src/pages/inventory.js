@@ -351,14 +351,14 @@ const filteredFoods = foods.filter(food => {
 
                 }}
             >
-                Cancel
+                Cancel.
             </button>
 
             <button
                 className="confirm-btn"
                 onClick={confirmMarkAsUsed}
             >
-                Yes
+                Yes.
             </button>
 
         </div>
