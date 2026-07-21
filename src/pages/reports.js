@@ -305,7 +305,10 @@ function Reports() {
 
             <XAxis dataKey="week"/>
 
-            <YAxis domain={[0,50]}/>
+            <YAxis
+             domain={[0,50]}
+             ticks={[0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50]}
+            />
 
             <Tooltip/>
 
