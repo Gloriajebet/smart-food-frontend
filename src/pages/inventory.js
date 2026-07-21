@@ -13,6 +13,7 @@ import {
 import { 
   useState, 
   useEffect, 
+  useCallback,
  } from "react";
 
 import { authHeaders } from "../components/api";
@@ -32,8 +33,7 @@ function Inventory() {
   const [showSearch, setShowSearch] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
 
-useEffect(() => {
-  const fetchFoods = async () => {
+   const fetchFoods = useCallback(async () => {
     try {
       const response = await fetchWithAuth(
         `https://smart-food-dyp3.onrender.com/api/fooditems/`,
@@ -61,10 +61,11 @@ useEffect(() => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
 
+useEffect(() => {
   fetchFoods();
-}, [navigate]);
+}, [fetchFoods]);
 
   const deleteFood = async (id) => {
 
@@ -129,7 +130,8 @@ const markAsUsed = async (id) => {
         const response = await fetchWithAuth(
             `https://smart-food-dyp3.onrender.com/api/fooditems/${id}/mark-used/`,
             {
-                method: "PATCH"
+                method: "PATCH",
+                headers: authHeaders(),
             }
         );
 
@@ -137,6 +139,8 @@ const markAsUsed = async (id) => {
             alert("Failed to mark item as used.");
             return;
         }
+
+        await fetchFoods();
 
         alert("✅ Food item marked as used successfully!");
 
