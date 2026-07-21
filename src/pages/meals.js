@@ -376,6 +376,11 @@ const suggestions = recipes
  "🟢 Low Waste Reduction Priority"}
 
 </p>
+
+<p className="view-recipe">
+    👆 Tap to view full recipe
+</p>
+
                     </div>
                     <h3>
                       Available Ingredients({recipe.available.length})
