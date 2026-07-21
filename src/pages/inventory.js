@@ -32,6 +32,8 @@ function Inventory() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [showSearch, setShowSearch] = useState(false);
   const [deletingId, setDeletingId] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [selectedFoodId, setSelectedFoodId] = useState(null);
 
    const fetchFoods = useCallback(async () => {
     try {
@@ -117,18 +119,16 @@ useEffect(() => {
 
 const markAsUsed = async (id) => {
 
-    const confirmUse = window.confirm(
-        "Are you sure you have used this food item?"
-    );
+   setSelectedFoodId(id);
+   setShowConfirm(true);
+}
 
-    if (!confirmUse) {
-        return;
-    }
+    const confirmMarkAsUsed = async () => {
 
     try {
 
         const response = await fetchWithAuth(
-            `https://smart-food-dyp3.onrender.com/api/fooditems/${id}/mark-used/`,
+            `https://smart-food-dyp3.onrender.com/api/fooditems/${selectedFoodId}/mark-used/`,
             {
                 method: "PATCH",
                 headers: authHeaders(),
@@ -142,9 +142,13 @@ const markAsUsed = async (id) => {
 
         await fetchFoods();
 
-        alert("✅ Food item marked as used successfully!");
+        setShowConfirm(false);
 
-    } catch (error) {
+        setSelectedFoodId(null);
+
+    }
+
+    catch (error) {
 
         console.error(error);
 
@@ -323,6 +327,48 @@ const filteredFoods = foods.filter(food => {
           ))
         )}
       </div>
+      {showConfirm && (
+
+<div className="confirm-overlay">
+
+    <div className="confirm-box">
+
+        <h3>Mark Item as Used</h3>
+
+        <p>
+            Are you sure you have used this food item?
+        </p>
+
+        <div className="confirm-buttons">
+
+            <button
+                className="cancel-btn"
+                onClick={() => {
+
+                    setShowConfirm(false);
+
+                    setSelectedFoodId(null);
+
+                }}
+            >
+                Cancel
+            </button>
+
+            <button
+                className="confirm-btn"
+                onClick={confirmMarkAsUsed}
+            >
+                Yes, Mark Used
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+)}
+
       <button
         className="floating-btn"
         onClick={() => navigate("/add-food")}
