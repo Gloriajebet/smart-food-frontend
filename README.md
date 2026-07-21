@@ -1,70 +1,150 @@
-# Getting Started with Create React App
+# Smart Food Optimization and Waste Reduction System (Frontend).
+## Overview.
+The Smart Food Optimization and Waste Reduction System is a mobile and web-based application developed to help households reduce food waste through efficient food inventory management. The system enables users to keep track of food items, monitor expiry dates, receive expiry alerts and obtain meal suggestions based on ingredients available in their inventory.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This repository contains the **React frontend**, which provides the graphical user interface (GUI) that users interact with.
 
-## Available Scripts
+## Project Objectives.
+The objectives of the system are to:
+* Reduce household food waste.
+* Improve food inventory management.
+* Monitor food expiry dates.
+* Recommend meals based on available ingredients.
+* Encourage better food utilization through timely alerts.
 
-In the project directory, you can run:
+## Features.
+### User Authentication.
+* User Registration.
+* Secure User Login.
+* JWT Authentication.
+* User Logout.
 
-### `npm start`
+### Dashboard.
+* Displays total food items.
+* Displays expired food.
+* Displays food expiring soon.
+* Provides quick navigation to other modules.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Food Inventory.
+* Add new food items.
+* View food inventory.
+* Edit food items.
+* Delete food items.
+* Search food items.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Expiry Alerts.
+* Shows expired food.
+* Shows food nearing expiry.
+* Helps users prioritize food consumption.
 
-### `npm test`
+### Meal Suggestions.
+* Generates recipes based on ingredients available in inventory.
+* Calculates ingredient match percentage.
+* Highlights missing ingredients.
+* Prioritizes recipes that reduce food waste.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### User Profile.
+* View profile information.
+* Update account details.
 
-### `npm run build`
+## Technologies Used.
+### Frontend Framework.
+* React.js
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Routing.
+* React Router DOM.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Styling.
+* CSS3.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Icons.
+* React Icons.
 
-### `npm run eject`
+### API Communication.
+* Fetch API.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project Structure.
+frontend/
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+├── public/
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── pages/
+│   ├── styles/
+│   ├── App.js
+│   └── index.js
+│
+├── package.json
+├── package-lock.json
+└── README.md
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Installation.
+Clone the repository.
+git clone https://github.com/Gloriajebet/smart-food-frontend.git
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Navigate into the project.
+cd frontend
 
-## Learn More
+Install dependencies.
+npm install
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run the application.
+npm start
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The application will start on:
+http://localhost:3000
 
-### Code Splitting
+## Deployment.
+The frontend is deployed on **Vercel**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Live Application.
+https://smart-food-frontend-xi.vercel.app
 
-### Analyzing the Bundle Size
+## Backend.
+The backend source code is available at:
+https://github.com/Gloriajebet/smart-food-backend.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Screenshots.
+## Login Page.
+![Login](screenshots/login.jpg)
 
-### Making a Progressive Web App
+## Register Page.
+![Register](screenshots/register.jpg)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Dashboard Page.
+![Dashboard](screenshots/dashboard.jpg)
 
-### Advanced Configuration
+## Add Food Page.
+![Add Food](screenshots/addfood.PNG)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Inventory Page.
+![Inventory](screenshots/inventory.jpg)
 
-### Deployment
+## Alerts Page.
+![Alerts](screenshots/alerts.jpg)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Meal Suggestions Page.
+![Meals](screenshots/meals.jpg)
 
-### `npm run build` fails to minify
+## Reports Page.
+![Reports](screenshots/reports.jpg)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## Profile Page.
+![Profile](screenshots/profile.jpg)
+
+## Author.
+**Gloria Masit.**
+Bachelor of Science in Software Engineering.
+Senior Project.
+
+## Acknowledgements.
+Kaggle Recipe Dataset.
+React.
+Django REST Framework.
+Railway.
+Render.
+Vercel.
+
+## License.
+This project was developed for academic purposes as part of a Bachelor of Science in Software Engineering final-year project.
