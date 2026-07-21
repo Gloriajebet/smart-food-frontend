@@ -21,6 +21,8 @@ function AddFood() {
  const [loading, setLoading] = useState(false);
  const [error, setError] = useState({});
  const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+ const [showErrorPopup, setShowErrorPopup] = useState(false);
+ const [errorMessage, setErrorMessage] = useState("");
 
  const validateForm = () => {
     const newErrors = {};
@@ -56,9 +58,12 @@ function AddFood() {
 
  const handleSubmit = async (e) => {
     e.preventDefault();
-   if (!validateForm()) {
+  if (!validateForm()) {
+    setErrorMessage("Please fill in all required fields.");
+    setShowErrorPopup(true);
     return;
 }
+
     setShowSaveConfirm(true);
  };
    
@@ -88,28 +93,26 @@ function AddFood() {
         );
 
         if (!response.ok) {
+    const errorData = await response.json();
+    console.log(errorData);
 
-            const errorData = await response.json();
+    setErrorMessage("Failed to save item.");
+    setShowErrorPopup(true);
 
-            console.log(errorData);
-
-            alert("Failed to save item");
-
-            return;
-
-        }
+    return;
+}
 
         setShowSaveConfirm(false);
 
         navigate("/inventory");
 
     } catch (error) {
+    console.error(error);
 
-        console.error(error);
-
-        alert("Something went wrong.");
-
-    } finally {
+    setErrorMessage("Something went wrong. Please try again.");
+    setShowErrorPopup(true);
+}
+    finally {
 
         setLoading(false);
 
@@ -402,6 +405,46 @@ function AddFood() {
 
 </div>
 
+)}
+
+{showErrorPopup && (
+  <div className="confirm-overlay">
+    <div className="confirm-box">
+      <h3>Incomplete Form</h3>
+
+      <p>{errorMessage}</p>
+
+      <div className="confirm-buttons">
+        <button
+          className="confirm-btn"
+          onClick={() => setShowErrorPopup(false)}
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
+{showErrorPopup && (
+  <div className="confirm-overlay">
+    <div className="confirm-box">
+
+      <h3>Unable to Save</h3>
+
+      <p>{errorMessage}</p>
+
+      <div className="confirm-buttons">
+        <button
+          className="confirm-btn"
+          onClick={() => setShowErrorPopup(false)}
+        >
+          OK
+        </button>
+      </div>
+
+    </div>
+  </div>
 )}
 
     </div>
