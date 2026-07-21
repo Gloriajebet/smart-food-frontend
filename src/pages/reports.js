@@ -315,6 +315,23 @@ function Reports() {
             <Line
               type="monotone"
               dataKey="wasted"
+              stroke="red"
+              strokeWidth={4}
+              dot={{
+                r:5,
+                fill:"#e53935",
+              }}
+              activeDot={{
+                r:8,
+                fill:"#e53935",
+              }}
+              isAnimationActive={true}
+              animationDuration={1500}
+            />
+
+            <Line
+              type="monotone"
+              dataKey="used"
               stroke="#2e7d32"
               strokeWidth={4}
               dot={{
