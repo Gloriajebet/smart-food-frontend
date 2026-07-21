@@ -240,14 +240,14 @@ function Reports() {
 
           <div>
             <h2>
-              KSh {""}
-              <CountUp
-              start={0}
-              end={report.money_saved}
-              duration={2.5}
-              separator=","
-            />
-            </h2>
+  KSh{" "}
+  <CountUp
+    start={0}
+    end={report.money_saved}
+    duration={2.5}
+    separator=","
+  />
+</h2>
             <p>Money Saved</p>
           </div>
 
