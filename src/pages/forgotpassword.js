@@ -34,10 +34,11 @@ function ForgotPassword() {
 
             const data = await response.json();
 
-            if (!response.ok) {
-                alert(data.error);
-                return;
-            }
+           if (!response.ok) {
+    console.log(data);
+    alert(data.error || JSON.stringify(data));
+    return;
+}
 
             alert(data.message);
 
@@ -49,7 +50,7 @@ function ForgotPassword() {
 
             console.error(error);
 
-            alert("Something went wrong.");
+            alert(error.message);
 
         }
 
