@@ -92,8 +92,6 @@ const deleteRecipe = async (id) => {
             prev.filter(recipe => recipe.id !== id)
         );
 
-        alert("Recipe deleted successfully.");
-
     } catch (error) {
         console.error(error);
         alert("Unable to delete recipe.");
