@@ -7,6 +7,7 @@ import {
   FiMenu,
   FiSearch,
   FiPlus,
+  FiTrash2,
 } from "react-icons/fi";
 
 import { useNavigate } from "react-router-dom";
@@ -25,6 +26,8 @@ function MealSuggestion() {
     const [nextPage, setNextPage] = useState(null);
     const [previousPage, setPreviousPage] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [selectedDeleteId, setSelectedDeleteId] = useState(null);
 
     useEffect(() => {
       const loadData = async () => {
@@ -69,6 +72,40 @@ function MealSuggestion() {
     } catch (error) {
         console.error(error);
     }
+};
+
+const deleteRecipe = async (id) => {
+
+    try {
+        const response = await fetchWithAuth(
+            `https://smart-food-dyp3.onrender.com/api/recipes/${id}/`,
+            {
+                method: "DELETE",
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to delete recipe");
+        }
+
+        setRecipes(prev =>
+            prev.filter(recipe => recipe.id !== id)
+        );
+
+        alert("Recipe deleted successfully.");
+
+    } catch (error) {
+        console.error(error);
+        alert("Unable to delete recipe.");
+    }
+};
+
+const confirmDeleteFood = async () => {
+    if (selectedDeleteId !== null) {
+        await deleteRecipe(selectedDeleteId);
+    }
+    setShowDeleteConfirm(false);
+    setSelectedDeleteId(null);
 };
 
   const today = new Date();
@@ -329,6 +366,14 @@ const suggestions = recipes
                 }
                     
                     <h3>{recipe.name}</h3>
+                    <FiTrash2
+    className="recipe-delete"
+    onClick={(e) => {
+        e.stopPropagation();
+        setSelectedDeleteId(recipe.id);
+        setShowDeleteConfirm(true);
+    }}
+/>
 
                     <div className="match-score">
                       <span>Match Score</span>
@@ -477,13 +522,53 @@ const suggestions = recipes
     </button>
 
 </div>
+
+{showDeleteConfirm && (
+
+<div className="confirm-overlay">
+
+    <div className="confirm-box">
+
+        <h3>Delete Food Item</h3>
+
+        <p>
+            Are you sure you want to delete this food item?
+        </p>
+
+        <div className="confirm-buttons">
+
             <button
-                  className="floating-btn"
-                  onClick={() => navigate("/add-recipe")}
-                >
-                  <FiPlus />
-                </button>
+                className="cancel-btn"
+                onClick={() => {
+                    setShowDeleteConfirm(false);
+                    setSelectedDeleteId(null);
+                }}
+            >
+                Cancel
+            </button>
+
+            <button
+                className="confirm-btn"
+                onClick={confirmDeleteFood}
+            >
+                Delete
+            </button>
+
         </div>
+
+    </div>
+
+</div>
+)}
+
+<button
+    className="floating-btn"
+    onClick={() => navigate("/add-recipe")}
+>
+    <FiPlus />
+</button>
+
+</div>
     );
 }
 

@@ -255,3 +255,16 @@ html{
     background:#cfcfcf;
     cursor:not-allowed;
 }
+
+.recipe-delete{
+    color:#e53935;
+    cursor:pointer;
+    font-size:20px;
+    float:right;
+    transition:.2s;
+}
+
+.recipe-delete:hover{
+    color:#b71c1c;
+    transform:scale(1.15);
+}

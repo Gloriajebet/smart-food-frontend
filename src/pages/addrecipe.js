@@ -22,44 +22,52 @@ function AddRecipe() {
 });
 
     const [loading, setLoading] = useState(false);
+    const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+    const [showErrorPopup, setShowErrorPopup] = useState(false);
+    const [errorMessage] = useState("");
 
     const handleSubmit = async (e) => {
-     e.preventDefault();
-     setLoading(true);
-     try {
-        const formData = new FormData();
-        formData.append("name", recipe.name);
-        formData.append("category", recipe.category);
-        formData.append("cooking_time", recipe.cooking_time);
-        formData.append("servings", recipe.servings);
-        formData.append("ingredients", recipe.ingredients);
-        formData.append("instructions", recipe.instructions);
-        if (recipe.image) {
-            formData.append("image", recipe.image);
-        }
-        const response = await fetchWithAuth(
-            "https://smart-food-dyp3.onrender.com/api/recipes/",
-            {
-                method: "POST",
-                body: formData
-            }
-        );
-        const result = await response.json();
-        console.log(result);
+        e.preventDefault();
+        setShowSaveConfirm(true);
+    };
 
-        if (!response.ok) {
-        throw new Error("Failed to save recipe");
-   }
-        navigate("/meals");
-    }
-    catch (error) {
-        console.error(error);
-        alert("Unable to save recipe.");
-    }
-    finally {
-        setLoading(false);
-    }
-};
+    const confirmSaveRecipe = async () => {
+        setLoading(true);
+        setShowSaveConfirm(false);
+        try {
+            const formData = new FormData();
+            formData.append("name", recipe.name);
+            formData.append("category", recipe.category);
+            formData.append("cooking_time", recipe.cooking_time);
+            formData.append("servings", recipe.servings);
+            formData.append("ingredients", recipe.ingredients);
+            formData.append("instructions", recipe.instructions);
+            if (recipe.image) {
+                formData.append("image", recipe.image);
+            }
+            const response = await fetchWithAuth(
+                "https://smart-food-dyp3.onrender.com/api/recipes/",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+            const result = await response.json();
+            console.log(result);
+
+            if (!response.ok) {
+                throw new Error("Failed to save recipe");
+            }
+            navigate("/meals");
+        }
+        catch (error) {
+            console.error(error);
+            alert("Unable to save recipe.");
+        }
+        finally {
+            setLoading(false);
+        }
+    };
 
 return (
  <div className="add-recipe-container">
@@ -160,6 +168,60 @@ return (
 {loading ? "SAVING..." : "SAVE RECIPE"}
 </button>
 </form>
+ {showSaveConfirm && (
+
+<div className="confirm-overlay">
+
+    <div className="confirm-box">
+
+        <h3>Save Recipe</h3>
+
+        <p>
+            Are you sure you want to add this recipe?
+        </p>
+
+        <div className="confirm-buttons">
+
+            <button
+                className="cancel-btn"
+                onClick={() => setShowSaveConfirm(false)}
+            >
+                Cancel
+            </button>
+
+            <button
+                className="confirm-btn"
+                onClick={confirmSaveRecipe}
+            >
+                Save
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+)}
+
+{showErrorPopup && (
+  <div className="confirm-overlay">
+    <div className="confirm-box">
+      <h3>Incomplete Form</h3>
+
+      <p>{errorMessage}</p>
+
+      <div className="confirm-buttons">
+        <button
+          className="confirm-btn"
+          onClick={() => setShowErrorPopup(false)}
+        >
+          OK
+        </button>
+</div>
+    </div>
+  </div>
+)}
 </div>
 );
 }
