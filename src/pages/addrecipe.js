@@ -32,14 +32,7 @@ function AddRecipe() {
         formData.append("category", recipe.category);
         formData.append("cooking_time", recipe.cooking_time);
         formData.append("servings", recipe.servings);
-        formData.append(
-            "ingredients", 
-            JSON.stringify(
-                recipe.ingredients
-            .split("\n")
-            .map(ingredient => ingredient.trim())
-            .filter(ingredient => ingredient !== "")
-        ));
+        formData.append("ingredients", recipe.ingredients);
         formData.append("instructions", recipe.instructions);
         if (recipe.image) {
             formData.append("image", recipe.image);

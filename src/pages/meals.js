@@ -46,19 +46,30 @@ function MealSuggestion() {
         }
     };
 
-    const loadRecipes = async () => {
-      try {
-            const response = await fetchWithAuth(
-                "https://smart-food-dyp3.onrender.com/api/recipes/"
-            );
-            const data = await response.json();
-            console.log(data.results[0]);
-            setRecipes(Array.isArray(data) ? data : data.results);
+   const loadRecipes = async () => {
+    try {
+        const response = await fetchWithAuth(
+            "https://smart-food-dyp3.onrender.com/api/recipes/"
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to load recipes");
         }
-        catch (error) {
-            console.error(error);
-        }
-    };
+
+        const data = await response.json();
+
+        console.log("Recipes:", data);
+
+        setRecipes(
+            Array.isArray(data)
+                ? data
+                : data.results || []
+        );
+
+    } catch (error) {
+        console.error(error);
+    }
+};
 
   const today = new Date();
 
