@@ -138,139 +138,201 @@ const downloadWasteReport = async () => {
 };
 
   const downloadReport = () => {
+  const doc = new jsPDF();
 
-    const totalItems = report.total_items ?? 0;
-    const expiringSoon = report.expiring_soon ?? 0;
-    const expiredItems = report.expired ?? 0;
+  const green = [44, 150, 53];
+  const red = [220, 53, 69];
+  const orange = [255, 152, 0];
 
-    const doc = new jsPDF();
+  const today = new Date();
 
-    doc.addImage(logo, "PNG", 150, 10, 35, 35);
+  // ==========================
+  // HEADER
+  // ==========================
 
-    doc.setFontSize(22);
-    doc.setTextColor(44,150,53);
-    doc.text("Smart Food System",20,20);
+  doc.setFontSize(22);
+  doc.setTextColor(...green);
+  doc.setFont("helvetica", "bold");
+  doc.text("Smart Food System", 20, 22);
 
-    doc.setFontSize(16);
-    doc.setTextColor(0,0,0);
-    doc.text("Combined Food Report",20,32);
+  doc.setFontSize(16);
+  doc.setTextColor(0, 0, 0);
+  doc.text("Combined Food Report", 20, 34);
 
-    doc.setDrawColor(44,150,53);
-    doc.line(20,36,190,36);
+  doc.addImage(logo, "PNG", 155, 10, 35, 35);
 
-    doc.setFontSize(11);
-    doc.text(
-        `Generated: ${new Date().toLocaleString()}`,
-        20,
-        46
-    );
+  doc.setDrawColor(...green);
+  doc.setLineWidth(0.8);
+  doc.line(20, 40, 190, 40);
 
-    let y = 60;
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
+  doc.text(
+    `Generated: ${today.toLocaleDateString()} ${today.toLocaleTimeString()}`,
+    20,
+    48
+  );
 
-    doc.setFontSize(14);
-    doc.setTextColor(44,150,53);
-    doc.text("Inventory Summary",20,y);
+  // ==========================
+  // INVENTORY SUMMARY
+  // ==========================
 
-    doc.setFontSize(11);
-    doc.setTextColor(0,0,0);
+  let y = 62;
 
-    y += 12;
-    doc.text(`Total Items: ${totalItems}`,30,y);
+  doc.setFontSize(15);
+  doc.setFont("helvetica", "bold");
+  doc.text("Inventory Summary", 20, y);
 
-    y += 8;
-    doc.text(`Expiring Soon: ${expiringSoon}`,30,y);
+  y += 12;
 
-    y += 8;
-    doc.text(`Expired Items: ${expiredItems}`,30,y);
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
 
-    y += 18;
+  doc.text(`Total Items: ${report.total_items}`, 30, y);
+  y += 8;
 
-    doc.line(20,y-6,190,y-6);
+  doc.text(`Expiring Soon: ${report.expiring_soon}`, 30, y);
+  y += 8;
 
-    doc.setFontSize(14);
-    doc.setTextColor(44,150,53);
-    doc.text("Waste Analysis",20,y);
+  doc.text(`Expired Items: ${report.expired}`, 30, y);
 
-    doc.setFontSize(11);
-    doc.setTextColor(0,0,0);
+  y += 10;
 
-    y += 12;
-    doc.text(`Items Used On Time: ${report.items_used}`,30,y);
+  doc.line(20, y, 190, y);
 
-    y += 8;
-    doc.text(`Items Wasted: ${report.items_wasted}`,30,y);
+  // ==========================
+  // WASTE ANALYSIS
+  // ==========================
 
-    y += 8;
-    doc.text(`Money Saved: KSh ${report.money_saved}`,30,y);
+  y += 12;
 
-    y += 8;
-    doc.text(`Waste Reduction Score: ${report.waste_reduction}%`,30,y);
+  doc.setFontSize(15);
+  doc.setFont("helvetica", "bold");
+  doc.text("Waste Analysis", 20, y);
 
-    y += 18;
+  y += 12;
 
-    doc.line(20,y-6,190,y-6);
+  doc.setFontSize(11);
+  doc.setFont("helvetica", "normal");
 
-    doc.setFontSize(14);
-    doc.setTextColor(44,150,53);
-    doc.text("Food Inventory Details",20,y);
+  doc.text(`Items Used On Time: ${report.items_used}`, 30, y);
+  y += 8;
 
-    y += 12;
+  doc.text(`Items Wasted: ${report.items_wasted}`, 30, y);
+  y += 8;
 
-    doc.setFontSize(11);
-    doc.setTextColor(0,0,0);
+  doc.text(`Money Saved: KSh ${report.money_saved}`, 30, y);
+  y += 8;
 
-    if (report.foods?.length > 0) {
+  doc.text(`Waste Reduction Score: ${report.waste_reduction}%`, 30, y);
 
-        report.foods.forEach(food => {
+  y += 10;
 
-            doc.text(
-                `${food.name} (${food.quantity} ${food.unit}) - Expires ${food.expiry_date}`,
-                25,
-                y
-            );
+  doc.line(20, y, 190, y);
 
-            y += 8;
+  // ==========================
+  // INVENTORY DETAILS
+  // ==========================
 
-            if (y > 270) {
+  y += 14;
 
-                doc.addPage();
+  doc.setFontSize(15);
+  doc.setFont("helvetica", "bold");
+  doc.text("Food Inventory Details", 20, y);
 
-                y = 20;
+  y += 10;
 
-                doc.setFontSize(14);
-                doc.setTextColor(44,150,53);
-                doc.text("Food Inventory Details (Continued)",20,y);
+  report.foods.forEach((food) => {
+    const expiry = new Date(food.expiry_date);
 
-                y += 12;
+    let status = "Fresh";
+    let color = green;
 
-                doc.setFontSize(11);
-                doc.setTextColor(0,0,0);
-            }
+    const diff =
+      (expiry - today) / (1000 * 60 * 60 * 24);
 
-        });
-
-    } else {
-
-        doc.text("No inventory details available.",25,y);
-
-        y += 8;
-
+    if (diff < 0) {
+      status = "Expired";
+      color = red;
+    } else if (diff <= 3) {
+      status = "Expiring Soon";
+      color = orange;
     }
 
-    doc.line(20,y+6,190,y+6);
+    if (y > 255) {
+      doc.addPage();
 
-    doc.setFontSize(10);
-    doc.setTextColor(120);
+      y = 20;
+
+      doc.setFontSize(15);
+      doc.setFont("helvetica", "bold");
+      doc.text("Food Inventory Details (Continued)", 20, y);
+
+      y += 12;
+    }
+
+    doc.setFontSize(12);
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(0, 0, 0);
+    doc.text(food.name, 25, y);
+
+    y += 7;
+
+    doc.setFontSize(11);
+    doc.setFont("helvetica", "normal");
 
     doc.text(
-        "Generated automatically by Smart Food System",
-        20,
-        y+16
+      `Quantity: ${food.quantity} ${food.unit}`,
+      35,
+      y
     );
 
-    doc.save("SmartFoodCombinedReport.pdf");
+    y += 6;
 
+    doc.text(
+      `Expiry Date: ${food.expiry_date}`,
+      35,
+      y
+    );
+
+    y += 6;
+
+    doc.setTextColor(...color);
+
+    doc.text(
+      `Status: ${status}`,
+      35,
+      y
+    );
+
+    doc.setTextColor(0, 0, 0);
+
+    y += 6;
+
+    doc.setDrawColor(220);
+
+    doc.line(25, y, 185, y);
+
+    y += 8;
+  });
+
+  // ==========================
+  // FOOTER
+  // ==========================
+
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "italic");
+  doc.setTextColor(100);
+
+  doc.text(
+    "Generated automatically by Smart Food System",
+    20,
+    285
+  );
+
+  doc.save("SmartFoodCombinedReport.pdf");
 };
+
   return (
     <div className="reports-container">
 
