@@ -19,7 +19,6 @@ function ForgotPassword() {
         setLoading(true);
 
         try {
-
             const response = await fetch(
                 "https://smart-food-dyp3.onrender.com/api/forgot-password/",
                 {
@@ -35,29 +34,21 @@ function ForgotPassword() {
 
             const data = await response.json();
 
-           if (!response.ok) {
-            setMessage(data.message || "Failed to send reset link");
-    return;
-}
+            if (!response.ok) {
+                setMessage(data.error || data.message || "Failed to send reset link");
+                return;
+            }
 
-            alert(data.message);
+            setMessage(data.message);
 
-            navigate("/");
-
-        }
-
-        catch (error) {
-
+            setTimeout(() => {
+                navigate("/");
+            }, 2000);
+        } catch (error) {
             console.error(error);
-
-            alert(error.message);
-
-        }
-
-        finally {
-
+            setMessage("Something went wrong. Please try again.");
+        } finally {
             setLoading(false);
-
         }
 
     };
@@ -112,12 +103,6 @@ function ForgotPassword() {
                 >
                     {loading ? "SENDING..." : "SEND RESET LINK"}
                 </button>
-
-                {message && (
-    <p className="success-message">
-        {message}
-    </p>
-)}
 
             </form>
 
