@@ -11,6 +11,7 @@ function ForgotPassword() {
 
     const [email, setEmail] = useState("");
     const [loading, setLoading] = useState(false);
+    const [message, setMessage] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -35,8 +36,7 @@ function ForgotPassword() {
             const data = await response.json();
 
            if (!response.ok) {
-    console.log(data);
-    alert(data.error || JSON.stringify(data));
+            setMessage(data.message || "Failed to send reset link");
     return;
 }
 
@@ -83,6 +83,12 @@ function ForgotPassword() {
 
             </p>
 
+            {message && (
+                <p className="success-message">
+                    {message}
+                </p>
+            )}
+
             <form onSubmit={handleSubmit}>
 
                 <div className="input-group">
@@ -106,6 +112,12 @@ function ForgotPassword() {
                 >
                     {loading ? "SENDING..." : "SEND RESET LINK"}
                 </button>
+
+                {message && (
+    <p className="success-message">
+        {message}
+    </p>
+)}
 
             </form>
 
