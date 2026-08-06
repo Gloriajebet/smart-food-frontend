@@ -48,11 +48,11 @@ function MealSuggestion() {
         }
     };
 
-   const loadRecipes = async () => {
+   const loadRecipes = async (
+    url = "https://smart-food-dyp3.onrender.com/api/recipes/"
+) => {
     try {
-        const response = await fetchWithAuth(
-            "https://smart-food-dyp3.onrender.com/api/recipes/"
-        );
+        const response = await fetchWithAuth(url);
 
         if (!response.ok) {
             throw new Error("Failed to load recipes");
@@ -62,11 +62,7 @@ function MealSuggestion() {
 
         console.log("Recipes:", data);
 
-        setRecipes(
-            Array.isArray(data)
-                ? data
-                : data.results || []
-        );
+        setRecipes(Array.isArray(data) ? data : data.results || []);
         setNextPage(data.next);
         setPreviousPage(data.previous);
 
@@ -468,14 +464,28 @@ const suggestions = recipes
 
     <button
         disabled={!previousPage}
-        onClick={() => loadRecipes(previousPage)}
+        onClick={() => {
+    if (previousPage) {
+        const page = new URL(previousPage).searchParams.get("page");
+        loadRecipes(
+            `https://smart-food-dyp3.onrender.com/api/recipes/?page=${page}`
+        );
+    }
+}}
     >
         Previous
     </button>
 
     <button
         disabled={!nextPage}
-        onClick={() => loadRecipes(nextPage)}
+        onClick={() => {
+    if (nextPage) {
+        const page = new URL(nextPage).searchParams.get("page");
+        loadRecipes(
+            `https://smart-food-dyp3.onrender.com/api/recipes/?page=${page}`
+        );
+    }
+}}
     >
         Next
     </button>
