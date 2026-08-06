@@ -1,4 +1,4 @@
-import "../styles/addfood.css";
+import "../styles/editfood.css";
 
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
