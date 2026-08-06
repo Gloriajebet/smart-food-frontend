@@ -103,11 +103,11 @@ function EditFood() {
 
     return (
 
-        <div className="add-food-container">
+        <div className="edit-food-container">
 
-            <div className="add-food-header">
+            <div className="edit-food-header">
                 <FiArrowLeft
-                    className="add-food-back-icon"
+                    className="edit-food-back-icon"
                     onClick={() => navigate("/inventory")}
                 />
                 <h2>Edit Food Item</h2>

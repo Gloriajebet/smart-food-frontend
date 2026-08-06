@@ -9,7 +9,8 @@ html{
     -webkit-text-size-adjust: 100%;
 }
 
-.add-food-container{
+.add-food-container,
+.edit-food-container{
     min-height:100vh;
     min-height: 100dvh;
     background:#f4f4f4;
@@ -17,7 +18,8 @@ html{
     position:relative;
 }
 
-.add-food-header{
+.add-food-header,
+.edit-food-header{
     height:80px;
     background:#2c9635;
     display:flex;
@@ -28,12 +30,14 @@ html{
     position:relative;
 }
 
-.add-food-header h2{
+.add-food-header h2,
+.edit-food-header h2{
     font-size:28px;
     font-weight:600;
 }
 
-.add-food-back-icon{
+.add-food-back-icon,
+.edit-food-back-icon{
     position:absolute;
     left:20px;
     top:50%;
