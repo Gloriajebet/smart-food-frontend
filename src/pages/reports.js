@@ -84,6 +84,20 @@ function Reports() {
     return <h2>Loading reports...</h2>;
   }
 
+  const downloadInventoryReport = () => {
+    window.open(
+        "https://smart-food-dyp3.onrender.com/api/reports/inventory/",
+        "_blank"
+    );
+};
+
+const downloadWasteReport = () => {
+    window.open(
+        "https://smart-food-dyp3.onrender.com/api/reports/waste/",
+        "_blank"
+    );
+};
+
   const downloadReport = () => {
     const totalItems = report.total_items ?? 0;
     const expiringSoon = report.expiring_soon ?? 0;
@@ -200,8 +214,28 @@ function Reports() {
 
         <FiDownload
     className="header-icon"
-    onClick={downloadReport}
-/>
+ />
+    <button
+        className="download-btn"
+        onClick={() => downloadInventoryReport()}
+    >
+        📄 Inventory Report
+    </button>
+
+    <button
+        className="download-btn secondary"
+        onClick={() => downloadWasteReport()}
+    >
+        📊 Waste Analysis Report
+    </button>
+
+    <button
+        className="download-btn tertiary"
+        onClick={downloadReport}
+    >
+        📄 Combined Report
+    </button>
+
       </div>
 
       <div className="month-dropdown">
