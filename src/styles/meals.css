@@ -233,3 +233,25 @@ html{
     font-weight:bold;
     margin-top:8px;
 }
+
+.pagination-buttons{
+    display:flex;
+    justify-content:center;
+    gap:15px;
+    margin:25px 0;
+}
+
+.pagination-buttons button{
+    background:#2E7D32;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:10px;
+    cursor:pointer;
+    font-weight:600;
+}
+
+.pagination-buttons button:disabled{
+    background:#cfcfcf;
+    cursor:not-allowed;
+}

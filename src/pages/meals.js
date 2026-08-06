@@ -22,6 +22,8 @@ function MealSuggestion() {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
     const [recipes, setRecipes] = useState([]);
+    const [nextPage, setNextPage] = useState(null);
+    const [previousPage, setPreviousPage] = useState(null);
 
     useEffect(() => {
       const loadData = async () => {
@@ -65,6 +67,8 @@ function MealSuggestion() {
                 ? data
                 : data.results || []
         );
+        setNextPage(data.next);
+        setPreviousPage(data.previous);
 
     } catch (error) {
         console.error(error);
@@ -459,6 +463,24 @@ const suggestions = recipes
                 </div>
             ))
           )}
+
+          <div className="pagination-buttons">
+
+    <button
+        disabled={!previousPage}
+        onClick={() => loadRecipes(previousPage)}
+    >
+        Previous
+    </button>
+
+    <button
+        disabled={!nextPage}
+        onClick={() => loadRecipes(nextPage)}
+    >
+        Next
+    </button>
+
+</div>
             <button
                   className="floating-btn"
                   onClick={() => navigate("/add-recipe")}
