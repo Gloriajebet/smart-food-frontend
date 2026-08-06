@@ -24,6 +24,7 @@ function MealSuggestion() {
     const [recipes, setRecipes] = useState([]);
     const [nextPage, setNextPage] = useState(null);
     const [previousPage, setPreviousPage] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
 
     useEffect(() => {
       const loadData = async () => {
@@ -48,11 +49,11 @@ function MealSuggestion() {
         }
     };
 
-   const loadRecipes = async (
-    url = "https://smart-food-dyp3.onrender.com/api/recipes/"
-) => {
+   const loadRecipes = async (page = 1) => {
     try {
-        const response = await fetchWithAuth(url);
+        const response = await fetchWithAuth(
+            `https://smart-food-dyp3.onrender.com/api/recipes/?page=${page}`
+        );
 
         if (!response.ok) {
             throw new Error("Failed to load recipes");
@@ -60,11 +61,10 @@ function MealSuggestion() {
 
         const data = await response.json();
 
-        console.log("Recipes:", data);
-
-        setRecipes(Array.isArray(data) ? data : data.results || []);
+        setRecipes(data.results || []);
         setNextPage(data.next);
         setPreviousPage(data.previous);
+        setCurrentPage(page);
 
     } catch (error) {
         console.error(error);
@@ -463,29 +463,15 @@ const suggestions = recipes
           <div className="pagination-buttons">
 
     <button
-        disabled={!previousPage}
-        onClick={() => {
-    if (previousPage) {
-        const page = new URL(previousPage).searchParams.get("page");
-        loadRecipes(
-            `https://smart-food-dyp3.onrender.com/api/recipes/?page=${page}`
-        );
-    }
-}}
+        disabled={currentPage === 1 || !previousPage}
+        onClick={() => loadRecipes(currentPage - 1)}
     >
         Previous
     </button>
 
     <button
         disabled={!nextPage}
-        onClick={() => {
-    if (nextPage) {
-        const page = new URL(nextPage).searchParams.get("page");
-        loadRecipes(
-            `https://smart-food-dyp3.onrender.com/api/recipes/?page=${page}`
-        );
-    }
-}}
+       onClick={() => loadRecipes(currentPage + 1)}
     >
         Next
     </button>
