@@ -46,6 +46,7 @@ function Reports() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [loading, setLoading] = useState(true);
+  const [showDownloadMenu, setShowDownloadMenu] = useState(false);
 
  const [report, setReport] = useState({
     waste_reduction: 0,
@@ -250,33 +251,49 @@ const downloadWasteReport = async () => {
 
         <h2>Reports & Analytics</h2>
 
-        <FiDownload
-    className="header-icon"
- />
-  </div>
+        <div className="download-wrapper">
 
- <div className="download-dropdown">
-    <button
-        className="download-btn"
-        onClick={() => downloadInventoryReport()}
-    >
-        📄 Inventory Report
-    </button>
+    <FiDownload
+        className="header-icon"
+        onClick={() =>
+            setShowDownloadMenu(!showDownloadMenu)
+        }
+    />
 
-    <button
-        className="download-btn secondary"
-        onClick={() => downloadWasteReport()}
-    >
-        📊 Waste Analysis Report
-    </button>
+    {showDownloadMenu && (
+        <div className="download-menu">
 
-    <button
-        className="download-btn tertiary"
-        onClick={downloadReport}
-    >
-        📄 Combined Report
-    </button>
+            <button
+                onClick={() => {
+                    downloadInventoryReport();
+                    setShowDownloadMenu(false);
+                }}
+            >
+                📄 Inventory Report
+            </button>
 
+            <button
+                onClick={() => {
+                    downloadWasteReport();
+                    setShowDownloadMenu(false);
+                }}
+            >
+                📊 Waste Analysis Report
+            </button>
+
+            <button
+                onClick={() => {
+                    downloadReport();
+                    setShowDownloadMenu(false);
+                }}
+            >
+                📑 Combined Report
+            </button>
+
+        </div>
+    )}
+
+        </div>
       </div>
 
       <div className="month-dropdown">
@@ -464,8 +481,8 @@ const downloadWasteReport = async () => {
                   <FiUser />
                   <span>Profile</span>
                 </div>
-                </div>
-                </div>
+              </div>
+            </div>
   );
 
 }
