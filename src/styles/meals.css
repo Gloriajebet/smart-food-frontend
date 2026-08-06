@@ -155,8 +155,37 @@ html{
     margin:18px;
     padding:18px;
     box-shadow:0 4px 15px rgba(0,0,0,.08);
-    transition:.25s;
+    transition:all .5s ease;
     cursor:pointer;
+}
+
+.meal-card.deleting{
+    animation: recipeSlideOut .5s ease forwards;
+}
+
+@keyframes recipeSlideOut{
+
+    0%{
+        opacity:1;
+        transform:translateX(0);
+        max-height:700px;
+        margin-bottom:20px;
+    }
+
+    40%{
+        transform:translateX(40px);
+        opacity:.7;
+    }
+
+    100%{
+        opacity:0;
+        transform:translateX(120%);
+        max-height:0;
+        margin-bottom:0;
+        padding-top:0;
+        padding-bottom:0;
+    }
+
 }
 
 .meal-card:hover{

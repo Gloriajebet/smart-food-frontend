@@ -26,6 +26,7 @@ function MealSuggestion() {
     const [nextPage, setNextPage] = useState(null);
     const [previousPage, setPreviousPage] = useState(null);
     const [currentPage, setCurrentPage] = useState(1);
+    const [deletingRecipe, setDeletingRecipe] = useState(null);
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [selectedDeleteId, setSelectedDeleteId] = useState(null);
 
@@ -77,6 +78,9 @@ function MealSuggestion() {
 const deleteRecipe = async (id) => {
 
     try {
+
+        setDeletingRecipe(id);
+
         const response = await fetchWithAuth(
             `https://smart-food-dyp3.onrender.com/api/recipes/${id}/`,
             {
@@ -88,12 +92,22 @@ const deleteRecipe = async (id) => {
             throw new Error("Failed to delete recipe");
         }
 
-        setRecipes(prev =>
-            prev.filter(recipe => recipe.id !== id)
-        );
+        setTimeout(() => {
+
+            setRecipes(prev =>
+                prev.filter(recipe => recipe.id !== id)
+            );
+
+            setDeletingRecipe(null);
+
+        }, 500);
 
     } catch (error) {
+
         console.error(error);
+
+        setDeletingRecipe(null);
+
         alert("Unable to delete recipe.");
     }
 };
@@ -349,7 +363,7 @@ const suggestions = recipes
 ) : (
           
       filteredSuggestions.map(recipe => (
-                <div className="meal-card"
+                <div className={`meal-card ${deletingRecipe === recipe.id ? "deleting" : ""}`}
                 key={recipe.id}
                 onClick={() => navigate(`/recipe/${recipe.id}`)}
                 >
@@ -527,10 +541,10 @@ const suggestions = recipes
 
     <div className="confirm-box">
 
-        <h3>Delete Food Item</h3>
+        <h3>Delete Recipe</h3>
 
         <p>
-            Are you sure you want to delete this food item?
+            Are you sure you want to delete this recipe?
         </p>
 
         <div className="confirm-buttons">
