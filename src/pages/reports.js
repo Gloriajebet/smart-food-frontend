@@ -215,6 +215,9 @@ const downloadWasteReport = () => {
         <FiDownload
     className="header-icon"
  />
+  </div>
+  
+ <div className="download-dropdown">
     <button
         className="download-btn"
         onClick={() => downloadInventoryReport()}
