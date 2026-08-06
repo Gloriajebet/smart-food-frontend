@@ -138,103 +138,139 @@ const downloadWasteReport = async () => {
 };
 
   const downloadReport = () => {
+
     const totalItems = report.total_items ?? 0;
     const expiringSoon = report.expiring_soon ?? 0;
     const expiredItems = report.expired ?? 0;
-    const wasteScore = totalItems > 0
-      ? Math.round(((totalItems - expiredItems) / totalItems) * 100)
-      : 0;
 
     const doc = new jsPDF();
 
+    doc.addImage(logo, "PNG", 150, 10, 35, 35);
+
     doc.setFontSize(22);
     doc.setTextColor(44,150,53);
-    doc.text("Smart Food System", 20,20);
+    doc.text("Smart Food System",20,20);
 
     doc.setFontSize(16);
     doc.setTextColor(0,0,0);
-    doc.text("Food Waste Report",20,32);
+    doc.text("Combined Food Report",20,32);
 
     doc.setDrawColor(44,150,53);
     doc.line(20,36,190,36);
-    doc.addImage(logo,"PNG",150,10,35,35);
 
-    doc.setFontSize(12);
-
+    doc.setFontSize(11);
     doc.text(
         `Generated: ${new Date().toLocaleString()}`,
         20,
         46
     );
 
-    doc.text(
-        `Total Food Items: ${totalItems}`,
-        20,
-        60
-    );
-
-    doc.text(
-        `Expiring Soon: ${expiringSoon}`,
-        20,
-        70
-    );
-
-    doc.text(
-        `Expired Items: ${expiredItems}`,
-        20,
-        80
-    );
-
-    doc.text(
-        `Waste Reduction Score: ${wasteScore}%`,
-        20,
-        90
-    );
-
-    doc.line(20,100,190,100);
+    let y = 60;
 
     doc.setFontSize(14);
-    doc.text("Inventory Summary",20,115);
+    doc.setTextColor(44,150,53);
+    doc.text("Inventory Summary",20,y);
 
-    let y = 128;
+    doc.setFontSize(11);
+    doc.setTextColor(0,0,0);
 
-    if (Array.isArray(report.foods) && report.foods.length > 0) {
-      report.foods.forEach((food) => {
-        doc.setFontSize(11);
-        doc.text(
-          `${food.name} (${food.quantity} ${food.unit}) - Expires ${food.expiry_date}`,
-          20,
-          y
-        );
-        y += 8;
-        if (y > 270) {
-          doc.addPage();
-          y = 20;
-        }
-      });
+    y += 12;
+    doc.text(`Total Items: ${totalItems}`,30,y);
+
+    y += 8;
+    doc.text(`Expiring Soon: ${expiringSoon}`,30,y);
+
+    y += 8;
+    doc.text(`Expired Items: ${expiredItems}`,30,y);
+
+    y += 18;
+
+    doc.line(20,y-6,190,y-6);
+
+    doc.setFontSize(14);
+    doc.setTextColor(44,150,53);
+    doc.text("Waste Analysis",20,y);
+
+    doc.setFontSize(11);
+    doc.setTextColor(0,0,0);
+
+    y += 12;
+    doc.text(`Items Used On Time: ${report.items_used}`,30,y);
+
+    y += 8;
+    doc.text(`Items Wasted: ${report.items_wasted}`,30,y);
+
+    y += 8;
+    doc.text(`Money Saved: KSh ${report.money_saved}`,30,y);
+
+    y += 8;
+    doc.text(`Waste Reduction Score: ${report.waste_reduction}%`,30,y);
+
+    y += 18;
+
+    doc.line(20,y-6,190,y-6);
+
+    doc.setFontSize(14);
+    doc.setTextColor(44,150,53);
+    doc.text("Food Inventory Details",20,y);
+
+    y += 12;
+
+    doc.setFontSize(11);
+    doc.setTextColor(0,0,0);
+
+    if (report.foods?.length > 0) {
+
+        report.foods.forEach(food => {
+
+            doc.text(
+                `${food.name} (${food.quantity} ${food.unit}) - Expires ${food.expiry_date}`,
+                25,
+                y
+            );
+
+            y += 8;
+
+            if (y > 270) {
+
+                doc.addPage();
+
+                y = 20;
+
+                doc.setFontSize(14);
+                doc.setTextColor(44,150,53);
+                doc.text("Food Inventory Details (Continued)",20,y);
+
+                y += 12;
+
+                doc.setFontSize(11);
+                doc.setTextColor(0,0,0);
+            }
+
+        });
+
     } else {
-      doc.setFontSize(11);
-      doc.text("No inventory details available.", 20, y);
+
+        doc.text("No inventory details available.",25,y);
+
+        y += 8;
+
     }
 
-    doc.line(20,y+8,190,y+8);
+    doc.line(20,y+6,190,y+6);
 
     doc.setFontSize(10);
+    doc.setTextColor(120);
 
     doc.text(
-
         "Generated automatically by Smart Food System",
-
         20,
-
-        y+20
-
+        y+16
     );
 
-    doc.save("SmartFoodReport.pdf");
+    doc.save("SmartFoodCombinedReport.pdf");
 
 };
-
   return (
     <div className="reports-container">
 
