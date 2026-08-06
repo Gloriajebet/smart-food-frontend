@@ -18,6 +18,7 @@ function EditFood() {
 
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
+    const [price, setPrice] = useState("");
 
    const [food, setFood] = useState({
     name: "",
@@ -26,6 +27,7 @@ function EditFood() {
     category: "",
     purchase_date: "",
     expiry_date: "",
+    price: "",
     storage_location: "",
     notes: ""
 });
@@ -50,6 +52,7 @@ function EditFood() {
     category: data.category,
     purchase_date: data.purchase_date,
     expiry_date: data.expiry_date,
+    price: data.price || "",
     storage_location: data.storage_location || "",
     notes: data.notes || ""
 });
@@ -177,10 +180,19 @@ function EditFood() {
                     required
                 />
 
+                <label>Price (KSh)</label>
+
+        <input
+          type="number"
+          placeholder="Enter price"
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
+        />
+
                 <label>Storage Location</label>
 
                 <input
-                type="date"
+                type="text"
                 name="storage_location"
                 value={food.storage_location}
                 onChange={handleChange}
@@ -189,11 +201,11 @@ function EditFood() {
 
                 <label>Additional Notes</label>
 
-<textarea
-    name="notes"
-    value={food.notes}
-    onChange={handleChange}
-/>
+                 <textarea
+                  name="notes"
+                  value={food.notes}
+                 onChange={handleChange}
+                />
 
                 <button
     type="submit"
@@ -202,7 +214,7 @@ function EditFood() {
 >
     <FiSave />
 
-    {loading
+    {saving
         ? "UPDATING..."
         : "UPDATE ITEM"}
 </button>
