@@ -17,7 +17,10 @@ function EditFood() {
 
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const [price, setPrice] = useState("");
+    const [showSaveConfirm, setShowSaveConfirm] = useState(false);
+    const [showErrorPopup, setShowErrorPopup] = useState(false);
+    const [errorMessage] = useState("");
+    
 
    const [food, setFood] = useState({
     name: "",
@@ -74,7 +77,12 @@ function EditFood() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setShowSaveConfirm(true);
+    };
+
+    const confirmSaveFood = async () => {
         setSaving(true);
+        setShowSaveConfirm(false);
         try {
             const response = await fetchWithAuth(
                 `https://smart-food-dyp3.onrender.com/api/fooditems/${id}/`,
@@ -130,6 +138,62 @@ function EditFood() {
                     required
                 />
 
+
+                <label>Quantity</label>
+                <div className="row">
+
+                 <input
+                    type="number"
+                    name="quantity"
+                    value={food.quantity}
+                    onChange={handleChange}
+                    placeholder="Enter quantity"
+                    required
+                />
+                <select
+        name="unit"
+        value={food.unit}
+        onChange={handleChange}
+        required
+    >
+        <option value="">Select Unit</option>
+          <option>Bags.</option>
+          <option>Bottles.</option>
+          <option>Boxes.</option>
+          <option>Bundles.</option>
+          <option>Cans.</option>
+          <option>Cartons.</option>
+          <option>Crates.</option>
+          <option>Cups.</option>
+          <option>Dozens.</option>
+          <option>Fluid Ounces (fl oz).</option>
+          <option>Grams (g).</option>
+          <option>Items.</option>
+          <option>Jars.</option>
+          <option>Kilograms (kg).</option>
+          <option>Liters (L).</option>
+          <option>Loaves.</option>
+          <option>Milligrams (mg).</option>
+          <option>Milliliters (ml).</option>
+          <option>Ounces (oz).</option>
+          <option>Packets.</option>
+          <option>Pieces.</option>
+          <option>Pounds (lbs).</option>
+          <option>Rolls.</option>
+          <option>Sachets.</option>
+          <option>Sacks.</option>
+          <option>Servings.</option>
+          <option>Sheets.</option>
+          <option>Sticks.</option>
+          <option>Tablespoons (tbsp).</option>
+          <option>Teaspoons (tsp).</option>
+          <option>Trays.</option>
+          <option>Units.</option>
+          <option>Others Units.</option>
+
+        </select>
+        </div>
+
                 <label>Category</label>
 
                 <input
@@ -139,26 +203,37 @@ function EditFood() {
                     onChange={handleChange}
                     required
                 />
+                <select
+    name="category"
+    value={food.category}
+    onChange={handleChange}
+    required
+>
+   <option value="">Select Category</option>
+          <option>Bakery (Breads&Buns, Pastries&Sweet Goods, Cakes&Muffins, Biscuits&Cookies, etc).</option>
+          <option>Beverages (Carbonated Drinks, Juices, Energy&Sports Drinks, etc).</option>
+          <option>Cereals (Rice, Wheat, Maize, Oats, Barley, etc).</option>
+          <option>Condiments (Ketchup, Mustard, Mayonnaise, etc).</option>
+          <option>Dark Green Leafy Vegetables (Spinach, Kale, Swiss Chard, etc).</option>
+          <option>Eggs (Chicken, Duck, Quail, etc).</option>
+          <option>Fats & Oils (Olive Oil, Coconut Oil, etc).</option>
+          <option>Fish & Seafood (Salmon, Tuna, Shrimp, etc).</option>
+          <option>Frozen Foods (Frozen Vegetables, Frozen Fruits, etc).</option>
+          <option>Herbs & Spices (Basil, Oregano, Cumin, etc).</option>
+          <option>Legumes, Nuts & Seeds (Lentils, Almonds, Chia Seeds, etc).</option>
+          <option>Meat, Poultry & Offal (Beef, Pork, Chicken, Organ Meats(Liver, Kidneys) etc).</option>
+          <option>Milk & Dairy Products (Milk, Cheese, Yogurt, etc).</option>
+          <option>Other Fruits (Apples, Bananas, Grapes, etc).</option>
+          <option>Other Vegetables (Tomatoes, Eggplant, Cauliflower, Onions, etc).</option>
+          <option>Prepared Meals (Ready-to-Eat Meals, etc).</option>
+          <option>Snacks (Chips, Cookies, etc).</option>
+          <option>Vitamin A- Rich Fruits (Mangoes, Papayas, Apricots,etc).</option>
+          <option>Vitamin A- Rich Vegetables & Tubers (Carrots, Pumpkins, Sweet Potatoes, etc).</option>
+          <option>Water.</option>
+          <option>White Roots & Tubers (Potatoes, Yams, Cassava, etc).</option>
+          <option>Other Category.</option>
+        </select>
 
-                <label>Quantity</label>
-
-                <input
-                    type="number"
-                    name="quantity"
-                    value={food.quantity}
-                    onChange={handleChange}
-                    required
-                />
-
-                <label>Unit</label>
-
-                <input
-                    type="text"
-                    name="unit"
-                    value={food.unit}
-                    onChange={handleChange}
-                    required
-                />
 
                 <label>Purchase Date</label>
 
@@ -181,12 +256,14 @@ function EditFood() {
 
                 <label>Price (KSh)</label>
 
-        <input
-          type="number"
-          placeholder="Enter price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
+       <input
+    type="number"
+    name="price"
+    value={food.price}
+    onChange={handleChange}
+    placeholder="Enter price"
+    required
+/>
 
                 <label>Storage Location</label>
 
@@ -195,16 +272,18 @@ function EditFood() {
                 name="storage_location"
                 value={food.storage_location}
                 onChange={handleChange}
+                placeholder="Storage Location"
                 required
                 />
 
                 <label>Additional Notes</label>
 
                  <textarea
-                  name="notes"
-                  value={food.notes}
-                 onChange={handleChange}
-                />
+    name="notes"
+    value={food.notes}
+    onChange={handleChange}
+    placeholder="Additional Notes"
+/>
 
                 <button
     type="submit"
@@ -218,6 +297,61 @@ function EditFood() {
 </button>
 
             </form>
+            {showSaveConfirm && (
+
+<div className="confirm-overlay">
+
+    <div className="confirm-box">
+
+        <h3>Update Food Item</h3>
+
+        <p>
+            Are you sure you want to update this food item?
+        </p>
+
+        <div className="confirm-buttons">
+
+            <button
+                className="cancel-btn"
+                onClick={() => setShowSaveConfirm(false)}
+            >
+                Cancel
+            </button>
+
+            <button
+                className="confirm-btn"
+                onClick={confirmSaveFood}
+            >
+                Save
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+)}
+
+{showErrorPopup && (
+  <div className="confirm-overlay">
+    <div className="confirm-box">
+      <h3>Incomplete Form</h3>
+
+      <p>{errorMessage}</p>
+
+      <div className="confirm-buttons">
+        <button
+          className="confirm-btn"
+          onClick={() => setShowErrorPopup(false)}
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
 
         </div>
 
