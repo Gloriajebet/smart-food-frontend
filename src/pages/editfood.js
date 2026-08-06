@@ -196,13 +196,6 @@ function EditFood() {
 
                 <label>Category</label>
 
-                <input
-                    type="text"
-                    name="category"
-                    value={food.category}
-                    onChange={handleChange}
-                    required
-                />
                 <select
     name="category"
     value={food.category}
