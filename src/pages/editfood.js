@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import {
   FiArrowLeft,
-  FiSave
 } from "react-icons/fi";
 
 import { authHeaders } from "../components/api";
@@ -212,7 +211,6 @@ function EditFood() {
     className="save-btn"
     disabled={saving}
 >
-    <FiSave />
 
     {saving
         ? "UPDATING..."
