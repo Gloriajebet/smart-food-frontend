@@ -13,6 +13,7 @@ import AddRecipe from './pages/addrecipe';
 import RecipeDetails from './pages/recipedetails';
 import ForgotPassword from './pages/forgotpassword';
 import Profile from './pages/profile';
+import ResetPassword from './pages/resetpassword';
 
 function App() {
   return (
@@ -83,6 +84,7 @@ function App() {
          </ProtectedRoute>
         }
          />
+         <Route path="reset-password/:uid/:token" element={<ResetPassword />} />
       </Routes>
     </Router>
   );
