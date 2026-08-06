@@ -264,15 +264,17 @@ const downloadWasteReport = async () => {
         <div className="download-menu">
 
             <button
-                onClick={() => {
-                    downloadInventoryReport();
-                    setShowDownloadMenu(false);
-                }}
+              className="download-option inventory"
+              onClick={() => {
+                  downloadInventoryReport();
+                  setShowDownloadMenu(false);
+              }}
             >
                 📄 Inventory Report
             </button>
 
             <button
+                className="download-option waste"
                 onClick={() => {
                     downloadWasteReport();
                     setShowDownloadMenu(false);
@@ -282,6 +284,7 @@ const downloadWasteReport = async () => {
             </button>
 
             <button
+                className="download-option combined"
                 onClick={() => {
                     downloadReport();
                     setShowDownloadMenu(false);

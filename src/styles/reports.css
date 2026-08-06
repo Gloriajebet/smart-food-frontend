@@ -67,42 +67,86 @@ html{
 
 .download-menu{
     position:absolute;
-    top:42px;
-    right:0;
-    width:220px;
-    background:#fff;
-    border-radius:12px;
-    box-shadow:0 10px 25px rgba(0,0,0,.18);
-    overflow:hidden;
-    z-index:1000;
-    animation:fadeDown .25s ease;
+    top:65px;
+    right:20px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:10px;
+
+    width:240px;
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:15px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+    animation:fadeIn .25s ease;
 }
 
-.download-menu button{
-    width:100%;
+.download-option{
     border:none;
-    background:white;
-    padding:14px 18px;
-    text-align:left;
-    cursor:pointer;
+
+    padding:14px;
+
+    border-radius:12px;
+
     font-size:15px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
     transition:.25s;
 }
 
-.download-menu button:hover{
-    background:#f1f8f1;
-    color:#2e7d32;
+.download-option:hover{
+    transform:translateY(-2px);
 }
 
-@keyframes fadeDown{
-    from{
-        opacity:0;
-        transform:translateY(-10px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
+.inventory{
+    background:#4CAF50;
+    color:white;
+}
+
+.inventory:hover{
+    background:#43A047;
+}
+
+.waste{
+    background:#FF9800;
+    color:white;
+}
+
+.waste:hover{
+    background:#F57C00;
+}
+
+.combined{
+    background:#2196F3;
+    color:white;
+}
+
+.combined:hover{
+    background:#1976D2;
+}
+
+@keyframes fadeIn{
+
+from{
+opacity:0;
+transform:translateY(-10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
 }
 
 .report-buttons{
