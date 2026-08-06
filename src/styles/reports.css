@@ -109,12 +109,12 @@ html{
 }
 
 .inventory{
-    background:#4CAF50;
+    background:#81c784;
     color:white;
 }
 
 .inventory:hover{
-    background:#a4f7a8;
+    background:#317935;
 }
 
 .waste{
