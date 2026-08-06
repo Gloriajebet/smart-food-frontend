@@ -42,7 +42,7 @@ function App() {
          </ProtectedRoute>
          } 
          />
-        <Route path="/edit-food/:id" element={<AddFood />} />
+        
         <Route
          path="/inventory" 
          element={
