@@ -84,18 +84,56 @@ function Reports() {
     return <h2>Loading reports...</h2>;
   }
 
-  const downloadInventoryReport = () => {
-    window.open(
-        "https://smart-food-dyp3.onrender.com/api/reports/inventory/",
-        "_blank"
-    );
+ const downloadInventoryReport = async () => {
+    try {
+        const response = await fetchWithAuth(
+            "https://smart-food-dyp3.onrender.com/api/reports/inventory/"
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to download inventory report");
+        }
+
+        const blob = await response.blob();
+
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "Inventory_Report.pdf";
+        link.click();
+
+        window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+        console.error(error);
+    }
 };
 
-const downloadWasteReport = () => {
-    window.open(
-        "https://smart-food-dyp3.onrender.com/api/reports/waste/",
-        "_blank"
-    );
+const downloadWasteReport = async () => {
+    try {
+        const response = await fetchWithAuth(
+            "https://smart-food-dyp3.onrender.com/api/reports/waste/"
+        );
+
+        if (!response.ok) {
+            throw new Error("Failed to download waste report");
+        }
+
+        const blob = await response.blob();
+
+        const url = window.URL.createObjectURL(blob);
+
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "Waste_Report.pdf";
+        link.click();
+
+        window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+        console.error(error);
+    }
 };
 
   const downloadReport = () => {
@@ -216,7 +254,7 @@ const downloadWasteReport = () => {
     className="header-icon"
  />
   </div>
-  
+
  <div className="download-dropdown">
     <button
         className="download-btn"
