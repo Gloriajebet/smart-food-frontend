@@ -114,11 +114,11 @@ html{
 }
 
 .inventory:hover{
-    background:#43A047;
+    background:#a4f7a8;
 }
 
 .waste{
-    background:#FF9800;
+    background:#ffcd81;
     color:white;
 }
 
@@ -127,7 +127,7 @@ html{
 }
 
 .combined{
-    background:#2196F3;
+    background:#98cbf5;
     color:white;
 }
 
