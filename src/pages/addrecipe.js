@@ -45,12 +45,11 @@ function AddRecipe() {
             }
         );
         const result = await response.json();
-console.log(result);
+        console.log(result);
 
-if (!response.ok) {
-    alert(JSON.stringify(result));
-    throw new Error("Failed to save recipe");
-}
+        if (!response.ok) {
+        throw new Error("Failed to save recipe");
+   }
         navigate("/meals");
     }
     catch (error) {
